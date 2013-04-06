@@ -49,25 +49,20 @@
 		var structure = structures[letters.length];
 		
 		letters.forEach(function(value, index){
-			// console.log(value, index);
-			
-			// console.log(structure[index]);
 			var word = words[structure[index]][value];
 			result.push(word);
 		});
 
 		return result;
-
-		document.write('<p>Original Array:</p>');
-		document.write('<p>'+array+'</p>');
-		document.write('<p>First Letters:</p>');
-		document.write('<p>'+letters+'</p>');
-		document.write('<p> Count: '+letters.length+'</p>');
 	}
 
 	var array = ['analysis', 'examination', 'diagnosis'];
 	var resArray;
 	resArray = generate(array);
+	document.write('<p>Original Array:</p>');
+	document.write('<p>'+array+'</p>');
+	document.write('<p>Result Array:</p>');
+	document.write('<p>'+resArray+'</p>');
 	console.log(resArray);
 
 </script>
