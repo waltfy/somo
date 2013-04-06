@@ -1,3 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Somo &copy;</title>
+<link href='http://fonts.googleapis.com/css?family=Signika+Negative' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<header>
+	  <h1 class='logo'>Somo</h1>
+		<small>Revising? Generate a <i>mnemonic</i> to help you remember sh*t.</small>
+  </header>
+  <div class='tin'>
+  	<small>Insert a phrase, just words separated by commas.</small>
+		<br>
+		<input type='text' id='origin' placeholder='examination, diagnostic, check, abstract'>
+		<br>
+		<input type='button' value='mnemonic that motha up!' onclick='mnemonic()'>
+		<div class='result hide'>
+			<h2>Result</h2>
+		</div>
+  </div>
+  <footer>
+  	Somo was made in 90 min? Wow! Yeah it was a <a href="http://90m.in">90m.in</a> challenge submission organised by <a href="http://www.twitter.com/phuunet">phuu</a> • crafted by <a href="http://www.twitter.com/waltercfilho">walter carvalho</a>.
+  </footer>
+</body>
+</html>
+<style type="text/css">
+	body {
+		margin: 0;
+		padding: 1.875em ;
+		background-color: #fbfbfb;
+		border-top: 1em solid hsla(90, 50%, 50%, 0.7);
+		font-family: 'Signika Negative', sans-serif;
+	}
+
+	.logo {
+		font-weight: normal;
+		margin: 0;
+	}
+
+	header {
+		font-size: 1.6em;
+	}
+
+	.tin {
+		padding: 1.875em;
+	}
+
+	.tin input {
+		min-width: 50%;
+	}
+
+	.result {
+		margin: 1.875em;
+		padding: 0.625em 1.875em;
+		background: #fff;
+		font-size: 1.4em;
+	}
+
+	.hide {
+		display: none; 
+	}
+
+</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
 
@@ -12,11 +77,11 @@
 		},
 
 		noun 	: {
-			a : 'ants',
-			b : 'bees',
-			c : 'cats',
-			d : 'dogs',
-			e : 'elephants'
+			a : 'ant',
+			b : 'bee',
+			c : 'cat',
+			d : 'dog',
+			e : 'elephant'
 		},
 
 		adj 	: {
@@ -32,37 +97,59 @@
 		[], // 0
 		[],	// 1
 		[],	// 2
-		['adj', 'adj', 'noun'] // 3
+		['adj', 'adj', 'noun'], // 3
+		['adj', 'adj', 'noun', 'verb'] // 4
 	];
 
 	// console.log(structures);
+
+	function getAcronym(array) {
+		var acroynym = [];
+		
+		array.forEach(function(data) {
+			console.log(data);
+			data = data.trim();
+			acroynym.push(data[0]);
+		});
+
+		return acroynym;
+	}
 
 	function generate(array) {
 		var array = array;
 		var letters = [];
 		var result = [];
+		var displayDiv = document.createElement('div');
 	
-		array.forEach(function(data) {
-			letters.push(data[0]);
-		});
+		letters = getAcronym(array);
 
+		console.log(letters);
 		var structure = structures[letters.length];
-		
+		console.log(structure);
+
 		letters.forEach(function(value, index){
-			var word = words[structure[index]][value];
+			var step = structure[index];
+			var word = words[step][value];
 			result.push(word);
 		});
 
 		return result;
 	}
 
-	var array = ['analysis', 'examination', 'diagnosis'];
-	var resArray;
-	resArray = generate(array);
-	document.write('<p>Original Array:</p>');
-	document.write('<p>'+array+'</p>');
-	document.write('<p>Result Array:</p>');
-	document.write('<p>'+resArray+'</p>');
-	console.log(resArray);
+	function mnemonic() {
+		var array = $('#origin').val();
+		array = array.split(",");
 
+		var resArray;
+		resArray = generate(array);
+		var resAcronym = getAcronym(resArray);
+		$('.result')
+			.html('<h2>Results</h2>')
+			.removeClass('hide')
+			.append('<small>• Suggested way to memorize:</small>')
+			.append('<p>-> '+resArray.join(' ').toUpperCase()+'</p>')
+			.append('<small>• Resultant mnemonic, or a shorter way to remember:</small>')
+			.append('<p>-> '+resAcronym.join('').toUpperCase()+'</p>');
+		console.log(resArray);
+	}
 </script>
