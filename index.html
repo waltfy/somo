@@ -15,7 +15,7 @@
 		<br>
 		<input type='text' id='origin' placeholder='examination, diagnostic, check, abstract' required='required'>
 		<br>
-		<input type='button' value='mnemonic that motha up!' onClick='mnemonic()'>
+		<input type='button' value='mnemonic that motha up!' id="go">
 		<div class='result hide'>
 		</div>
   </div>
@@ -45,6 +45,7 @@
 	}
 
 	header {
+		width: 100%;
 		font-size: 1.6em;
 	}
 
@@ -64,7 +65,13 @@
 		color: hsl(0, 0%, 60%);
 	}
 
-	@media screen and (max-width: 699px) {
+	@media screen and (min-width: 500px) {
+		body {
+			font-size: 2.5em;
+		}
+
+		input { width: 100%; font-size: 0.8em;}
+
 		.tin {
 			padding: 0;
 		}
@@ -164,12 +171,12 @@
 	// console.log(structures);
 
 	function getAcronym(array) {
+		var array = array;
 		var acroynym = [];
-		
-		array.forEach(function(data) {
-			// console.log(data);
-			data = data.trim();
-			acroynym.push(data[0]);
+
+		$.each(array, function(index, value) {
+			var data = value.trim();
+			acroynym.push(data.substr(0,1));
 		});
 
 		return acroynym;
@@ -179,13 +186,14 @@
 		var array = array;
 		var letters = [];
 		var result = [];
-		var displayDiv = document.createElement('div');
-	
 		letters = getAcronym(array);
+
 		var structure = structures[letters.length];
 
-		letters.forEach(function(value, index){
+		$.each(letters, function(index, value) {
+			console.log(index, value);
 			var step = structure[index];
+			// console.log(step);	
 			var size = words[step][value].length;
 			var random = Math.floor(Math.random() * (size));
 			var word = words[step][value][random];
@@ -195,21 +203,20 @@
 		return result;
 	}
 
-	function mnemonic() {
-		var array = $('#origin').val();
+	$('#go').click(function () {
+		var array = $('#origin').val().toLowerCase();
 		array = array.split(",");
-
 		var resArray;
 		resArray = generate(array);
 		var resAcronym = getAcronym(resArray);
+
 		$('.result')
 			.html('<h2>Results</h2>')
 			.removeClass('hide')
 			.append('<small>• Suggested way to memorize:</small>')
 			.append('<p>-> '+resArray.join(' ').toUpperCase()+'</p>')
 			.append('<small>• Resultant acroynym, or a shorter way to remember:</small>')
-			.append('<p>-> '+resAcronym.join('').toUpperCase()+'</p>')
-			.append("<input type='button' value='No likey? Try again!' onclick='mnemonic()'>");
-		// console.log(resArray);
-	}
+			.append('<p>-> '+resAcronym.join('').toUpperCase()+'</p>');
+		console.log(resArray);
+	});
 </script>
