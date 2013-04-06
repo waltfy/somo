@@ -11,9 +11,9 @@
 		<small>Revising? Generate a <i>mnemonic</i> to help you remember sh*t.</small>
   </header>
   <div class='tin'>
-  	<small>Insert a phrase, just words separated by commas that is.</small>
+  	<small>Insert a phrase, just words or even letters as long as they are separated by commas that is.</small>
 		<br>
-		<input type='text' id='origin' placeholder='examination, diagnostic, check, abstract'>
+		<input type='text' id='origin' placeholder='examination, diagnostic, check, abstract' required='required'>
 		<br>
 		<input type='button' value='mnemonic that motha up!' onclick='mnemonic()'>
 		<div class='result hide'>
@@ -55,6 +55,22 @@
 		padding: 0.625em 1.875em;
 		background: #fff;
 		font-size: 1.4em;
+		color: hsl(0, 0%, 60%);
+	}
+
+	@media screen and (max-width: 699px) {
+		.tin {
+			padding: 0;
+		}
+		.result {
+			margin: 0.625em 0;
+			padding: 0.625em;
+			width: 100%;
+		}
+	}
+
+	.result p {
+		color: hsla(90, 50%, 50%, 1);
 	}
 
 	.hide {
@@ -123,12 +139,20 @@
 			z: [ "zany", "zealous", "zesty", "zippy", "zonked" ] }
 	};
 
+	var randomCategory = ['adj', 'noun', 'verb'];
+	var randomPick = Math.floor(Math.random() * (randomCategory.length));
+
 	var structures = [
-		[], // 0
-		[],	// 1
-		[],	// 2
+		[randomCategory[randomPick]], // 0
+		[randomCategory[randomPick]],	// 1
+		[randomCategory[randomPick], randomCategory[randomPick]],	// 2
 		['adj', 'adj', 'noun'], // 3
-		['adj', 'adj', 'noun', 'verb'] // 4
+		['adj', 'adj', 'noun', 'verb'], // 4
+		['adj', 'adj', 'noun', 'verb', 'adj'], // 5
+		['adj', 'adj', 'noun', 'verb', 'adj', 'adj'], // 6
+		['adj', 'adj', 'noun', 'verb', 'adj', 'adj', 'noun'], // 7
+		['adj', 'adj', 'noun', 'verb', 'adj', 'adj', 'noun', 'verb'], // 8
+		['adj', 'adj', 'noun', 'verb', 'adj', 'adj', 'noun', 'verb', 'adj'], // 9
 	];
 
 	// console.log(structures);
@@ -177,8 +201,9 @@
 			.removeClass('hide')
 			.append('<small>• Suggested way to memorize:</small>')
 			.append('<p>-> '+resArray.join(' ').toUpperCase()+'</p>')
-			.append('<small>• Resultant mnemonic, or a shorter way to remember:</small>')
-			.append('<p>-> '+resAcronym.join('').toUpperCase()+'</p>');
+			.append('<small>• Resultant acroynym, or a shorter way to remember:</small>')
+			.append('<p>-> '+resAcronym.join('').toUpperCase()+'</p>')
+			.append("<input type='button' value='No likey? Try again!' onclick='mnemonic()'>");
 		// console.log(resArray);
 	}
 </script>
