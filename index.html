@@ -1,0 +1,73 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+
+	var words = {
+
+		verb 	: {
+			a : 'alerts',
+			b : 'bites',
+			c : 'contracts',
+			d : 'dictates',
+			e : 'erases'
+		},
+
+		noun 	: {
+			a : 'ants',
+			b : 'bees',
+			c : 'cats',
+			d : 'dogs',
+			e : 'elephants'
+		},
+
+		adj 	: {
+			a : 'aroused',
+			b : 'big',
+			c : 'cocky',
+			d : 'drastic',
+			e : 'enthusiastic'
+		}
+	};
+
+	var structures = [
+		[], // 0
+		[],	// 1
+		[],	// 2
+		['adj', 'adj', 'noun'] // 3
+	];
+
+	// console.log(structures);
+
+	function generate(array) {
+		var array = array;
+		var letters = [];
+		var result = [];
+	
+		array.forEach(function(data) {
+			letters.push(data[0]);
+		});
+
+		var structure = structures[letters.length];
+		
+		letters.forEach(function(value, index){
+			// console.log(value, index);
+			
+			// console.log(structure[index]);
+			var word = words[structure[index]][value];
+			result.push(word);
+		});
+
+		return result;
+
+		document.write('<p>Original Array:</p>');
+		document.write('<p>'+array+'</p>');
+		document.write('<p>First Letters:</p>');
+		document.write('<p>'+letters+'</p>');
+		document.write('<p> Count: '+letters.length+'</p>');
+	}
+
+	var array = ['analysis', 'examination', 'diagnosis'];
+	var resArray;
+	resArray = generate(array);
+	console.log(resArray);
+
+</script>
