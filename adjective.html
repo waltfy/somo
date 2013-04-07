@@ -44,24 +44,3 @@
 </tr>
 </tbody>
 </table>
-<script>
-
-	var $tds = $('td');
-	var adjectives = {};
-
-	$tds.each(function(){
-		var $this = $(this);
-		var $letter = $this.find('span').first().text().toLowerCase().trim();
-		$this.find('span').first().remove();
-		var $words = $this.text();
-		$words = $words.split(" ");
-
-		adjectives[$letter] = $words;
-
-	});
-
-	document.write(JSON.stringify(adjectives, null, '\t'));
-
-
-	// console.log(adjectives);
-</script>

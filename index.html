@@ -12,9 +12,10 @@
   </header>
   <div class='tin'>
   	<small>Insert a phrase, just words or even letters as long as they are separated by commas that is.</small>
-		<br>
+		</br>
 		<input type='text' id='origin' placeholder='examination, diagnostic, check, abstract' required='required'>
 		<br>
+		</br>
 		<input type='button' value='mnemonic that motha up!' id="go">
 		<div class='result hide'>
 		</div>
@@ -26,12 +27,17 @@
 </html>
 <style type="text/css">
 	body {
+		font-size: 1.2em;
 		color: #444;
 		margin: 0;
 		padding: 1.875em ;
 		background-color: #fbfbfb;
 		border-top: 1em solid hsla(90, 50%, 50%, 0.7);
 		font-family: 'Signika Negative', sans-serif;
+	}
+
+	input, select, textarea, button {
+		font-size: 1.4em;
 	}
 
 	a i.what {
@@ -51,6 +57,7 @@
 
 	.tin {
 		padding: 1.875em;
+		text-align: center;
 	}
 
 	.tin input {
@@ -67,7 +74,8 @@
 
 	@media screen and (min-width: 500px) {
 		body {
-			font-size: 2.5em;
+			font-size: 2em;
+			padding: 0.625em;
 		}
 
 		input { width: 100%; font-size: 0.8em;}
@@ -77,8 +85,8 @@
 		}
 		.result {
 			margin: 0.625em 0;
-			padding: 0.625em;
-			width: 100%;
+			padding: 2%;
+			max-width: 96%;
 		}
 	}
 
@@ -219,4 +227,20 @@
 			.append('<p>-> '+resAcronym.join('').toUpperCase()+'</p>');
 		console.log(resArray);
 	});
+
+	// var $tds = $('td');
+	// var adjectives = {};
+
+	// $tds.each(function(){
+	// 	var $this = $(this);
+	// 	var $letter = $this.find('span').first().text().toLowerCase().trim();
+	// 	$this.find('span').first().remove();
+	// 	var $words = $this.text();
+	// 	$words = $words.split(" ");
+
+	// 	adjectives[$letter] = $words;
+
+	// });
+
+	// document.write(JSON.stringify(adjectives, null, '\t'));
 </script>
